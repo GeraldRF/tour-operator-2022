@@ -54,4 +54,17 @@ public function el_sistema_puede_eliminar_una_reservacion()
   
 }
 
+
+/** @test */
+public function el_sistema_puede_mostrar_la_reservacion()
+{
+   $Cliente = Reservation::factory(1)->create();
+   $ClienteMostrar=Reservation::find($Cliente->id);
+
+
+   
+   $this->assertEquals($ClienteMostrar->id,$Cliente->id);
+  
+}
+
 }
