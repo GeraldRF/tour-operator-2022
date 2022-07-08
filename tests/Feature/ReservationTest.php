@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class ReservationTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -23,31 +24,24 @@ class ReservationTest extends TestCase
      
   }
 
- /** @test */
+/** @test */
  public function el_sistema_puede_editar_una_reservacion()
  {
-     $Reservita = new Reservation(['Name' => 'Jafeth']);
+    $Reservita = Reservation::factory(1)->create();
 
-     $this->assertEquals('Jafeth', $Reservita ->Name);
+    $Reservita = Reservation::find(1);
+    $NameActual=$Reservita->Name;
+    $this->assertEquals($NameActual,$Reservita->Name);
 
-    
+    $Reservita->Name = 'Fabricio';
+    $Reservita->save();
+
+    $Reservita = Reservation::find(1);
+
+     $this->assertEquals('Fabricio', $Reservita ->Name);
+
+
  }
-
-
- /** @test */
- public function el_sistema_puede_eliminar_una_reservacion()
- {
-     $Reservita = new Reservation(['Name' => 'Jafeth']);
-
-     $this->assertEquals('Jafeth', $Reservita ->Name);
-
-    
- }
-
-
-
-
-
 
 
 
