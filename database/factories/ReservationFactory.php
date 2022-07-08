@@ -17,7 +17,7 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'Name'=>$this->faker->firstName(),
+            'Cliente'=>$this->faker->firstName(),
 
 
 

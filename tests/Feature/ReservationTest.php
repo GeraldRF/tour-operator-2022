@@ -18,27 +18,27 @@ class ReservationTest extends TestCase
   /** @test */
   public function el_sistema_puede_crear_una_reservacion()
   {
-      $Reservita = new Reservation(['Name' => 'Jafeth']);
+      $Reservita = new Reservation(['Cliente' => 'Jafeth']);
 
-      $this->assertEquals('Jafeth', $Reservita ->Name);
+      $this->assertEquals('Jafeth', $Reservita ->Cliente);
      
   }
 
 /** @test */
  public function el_sistema_puede_editar_una_reservacion()
  {
-    $Reservita = Reservation::factory(1)->create();
-
+    
+    $Reservita = Reservation::factory(3)->create();
     $Reservita = Reservation::find(1);
-    $NameActual=$Reservita->Name;
-    $this->assertEquals($NameActual,$Reservita->Name);
+    $ClienteAModificar=$Reservita->Cliente;
+    $this->assertEquals($ClienteAModificar,$Reservita->Cliente);
 
-    $Reservita->Name = 'Fabricio';
+    $Reservita->Cliente = 'Fabricio';
     $Reservita->save();
 
     $Reservita = Reservation::find(1);
 
-     $this->assertEquals('Fabricio', $Reservita ->Name);
+     $this->assertEquals('Fabricio', $Reservita ->Cliente);
 
 
  }
@@ -52,8 +52,6 @@ public function el_sistema_puede_eliminar_una_reservacion()
    $Reservita->delete();
    $this->assertDatabaseMissing('reservations', ['id' => '1']);
   
-
 }
-
 
 }
