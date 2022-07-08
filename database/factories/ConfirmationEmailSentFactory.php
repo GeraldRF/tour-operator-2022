@@ -17,7 +17,7 @@ class ConfirmationEmailSentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'confirmado' => $this->faker->boolean(),
         ];
     }
 }

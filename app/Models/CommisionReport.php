@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class CommisionReport extends Model
 {
     use HasFactory;
+    protected $fillable = ['rango_fechas', 'supplier_id', 'reservation_id',];
 }

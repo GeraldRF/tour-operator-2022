@@ -17,7 +17,7 @@ class CommisionReportFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'rango_fechas' => $this->faker->text(),
         ];
     }
 }

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ConfirmationEmailSent extends Model
 {
     use HasFactory;
+    protected $fillable = ['confirmado', 'supplier_id', 'client_id',];
 }

@@ -17,7 +17,10 @@ class BillFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'fecha' => $this->faker->dateTime(),
+            'tipo_gasto' => $this->faker->text(),
+            'descripcion' => $this->faker->text(),
+            'monto' => $this->faker->numerify('#######'),
         ];
     }
 }
