@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('confirmation_emails_sent', function (Blueprint $table) {
+        Schema::create('confirmation_emails_sents', function (Blueprint $table) {
             $table->id();
             $table->boolean("confirmado");
             $table->foreignId("supplier_id");
