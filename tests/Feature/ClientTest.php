@@ -53,4 +53,21 @@ class ClientTest extends TestCase
     $this->assertDatabaseMissing('clients', ['id' => '1']);
    
  }
+
+/** @test */
+public function el_sistema_puede_mostrar_los_clientes()
+{
+   $Cliente= Client::factory(4)->create();
+   $ClienteMostrar=Client::find($Cliente[0]->id);
+   
+   
+   $this->assertEquals($ClienteMostrar->id,$Cliente[0]->id);
+  
+}
+
+
+
+
+
+
 }

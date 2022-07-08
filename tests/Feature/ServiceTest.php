@@ -52,4 +52,17 @@ public function el_sistema_puede_eliminar_una_reservacion()
   
 }
 
+/** @test */
+public function el_sistema_puede_mostrar_los_servicios()
+{
+   $Servicio= Service::factory(4)->create();
+   $ServicioMostrar=Service::find($Servicio[0]->id);
+   
+   
+   $this->assertEquals($ServicioMostrar->id,$Servicio[0]->id);
+  
+}
+
+
+
 }
