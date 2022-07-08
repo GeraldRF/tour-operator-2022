@@ -43,9 +43,17 @@ class ReservationTest extends TestCase
 
  }
 
+/** @test */
+public function el_sistema_puede_eliminar_una_reservacion()
+{
+   $Reservita = Reservation::factory(3)->create();
+  
+   $Reservita=Reservation::find(1);
+   $Reservita->delete();
+   $this->assertDatabaseMissing('reservations', ['id' => '1']);
+  
 
-
-
+}
 
 
 }
