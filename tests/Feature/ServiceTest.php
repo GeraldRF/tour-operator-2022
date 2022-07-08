@@ -64,5 +64,18 @@ public function el_sistema_puede_mostrar_los_servicios()
 }
 
 
+/** @test */
+public function el_sistema_puede_mostrar_los_servicios_a_realizar_por_dia()
+{
+   //FALTA FECHA EN SERVICES
+   $Servicio= Service::factory(4)->create();
+   $ServicioMostrar=Service::find($Servicio[0]->id);
+   
+   
+   $this->assertEquals($ServicioMostrar->id,$Servicio[0]->id);
+  
+}
+
+
 
 }
