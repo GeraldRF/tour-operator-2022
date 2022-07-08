@@ -17,7 +17,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'Cedula'=>$this->faker->unique()->numberBetween($min =100000000, $max = 900000000),
         ];
     }
 }
