@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('confirmation_emails_sent', function (Blueprint $table) {
             $table->id();
+            $table->boolean("confirmado");
+            $table->foreignId("supplier_id");
+            $table->foreignId("client_id");
             $table->timestamps();
         });
     }

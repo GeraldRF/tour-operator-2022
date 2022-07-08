@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('service_reports', function (Blueprint $table) {
             $table->id();
+            $table->string("rango_fechas");
+            $table->foreignId("supplier_id");
+            $table->foreignId("vehicle_id");
+            $table->foreignId("reservation_id");
+            $table->foreignId("driver_id");
             $table->timestamps();
         });
     }

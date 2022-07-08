@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('commision_reports', function (Blueprint $table) {
             $table->id();
+            $table->string("rango_fechas");
+            $table->foreignId("supplier_id");
+            $table->foreignId("reservation_id");
             $table->timestamps();
         });
     }

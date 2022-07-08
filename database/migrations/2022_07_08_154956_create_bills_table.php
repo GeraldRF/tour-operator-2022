@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->dateTime("fecha");
+            $table->string("tipo_gasto");
+            $table->string("descripcion");
+            $table->foreignId("vehicle_id");
+            $table->double("monto");
             $table->timestamps();
         });
     }
