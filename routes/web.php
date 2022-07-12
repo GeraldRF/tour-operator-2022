@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //No voy a emilinar la vista welcome para que tengan un ejemplo
-Route::get('/', function () {
+Route::get('/ejemplo', function () {
     return view('welcome');
+});
+
+Route::get('/', function () {
+    return view('index');
 });
