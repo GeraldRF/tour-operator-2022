@@ -1,4 +1,6 @@
 Hola desde Gastos
 
 
-{{$bills}}
+@foreach ($bills as $bill)
+    {{$bill}} <br><br>
+@endforeach

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bill;
+use Exception;
+use Illuminate\Queue\Jobs\RedisJob;
 
 class BillController extends Controller
 {
@@ -15,7 +17,8 @@ class BillController extends Controller
     public function index()
     {
         $bills = Bill::all();
-        return view('screens.bill.index', ['bills'=>$bills]);
+
+        return view('screens.bill.index', ['bills' => $bills]);
     }
 
     /**
@@ -35,8 +38,32 @@ class BillController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+
+        try {
+
+            $validated = $request->validate([
+                'fecha' => 'required',
+                'tipo_gasto' => 'required',
+                'descripcion' => 'required',
+                'vehicle_id' => 'required',
+                'monto' => 'required',
+            ]);
+
+            Bill::create($validated);
+
+            return redirect('gastos')->with(['success_msg'=>'Creado correctamente']);
+
+          //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('gastos')->with(['error_msg' => $e->getMessage()]);
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
+        }
+
+       
     }
 
     /**
