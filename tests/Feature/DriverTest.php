@@ -4,11 +4,13 @@ namespace Tests\Feature;
 use App\Models\Driver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class DriverTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
     
     /** @test */
     public function el_sistema_puede_crear_un_conductor()
@@ -17,14 +19,14 @@ class DriverTest extends TestCase
         $driver = Driver::factory()->create([
             'nombre' => 'Juan',
             'cedula' => '123456789',
-            'fechaNacimiento' => '2020-07-08',
-            'tipoLicencia' => 'A',
+            'fecha_nacimiento' => '2020-07-08',
+            'tipo_licencia' => 'A',
         ]);
         //verificar que el conductor se creo correctamente
         $this->assertEquals('Juan', $driver->nombre);
         $this->assertEquals('123456789', $driver->cedula);
-        $this->assertEquals('2020-07-08', $driver->fechaNacimiento);
-        $this->assertEquals('A', $driver->tipoLicencia);
+        $this->assertEquals('2020-07-08', $driver->fecha_nacimiento);
+        $this->assertEquals('A', $driver->tipo_licencia);
     }
 
     /** @test */
@@ -34,20 +36,26 @@ class DriverTest extends TestCase
         $driver = Driver::factory()->create([
             'nombre' => 'Juan',
             'cedula' => '123456789',
-            'fechaNacimiento' => '2020-07-08',
-            'tipoLicencia' => 'A',
+            'fecha_nacimiento' => '2020-07-08',
+            'tipo_licencia' => 'A',
         ]);
+
+        $response = $this->get('chofer/'.$driver->id.'/edit');
+
+       $response->assertStatus(200)->assertSee($driver->nombre);
+
         //editar conductor
-        $driver->nombre = 'Pedro';
+        $driver->nombre = 'Alan';
         $driver->cedula = '987654321';
-        $driver->fechaNacimiento = '2020-07-09';
-        $driver->tipoLicencia = 'B';
-        $driver->save();
-        //verificar que el conductor se edito correctamente
-        $this->assertEquals('Pedro', $driver->nombre);
-        $this->assertEquals('987654321', $driver->cedula);
-        $this->assertEquals('2020-07-09', $driver->fechaNacimiento);
-        $this->assertEquals('B', $driver->tipoLicencia);
+        $driver->fecha_nacimiento = '2020-07-09';
+        $driver->tipo_licencia = 'B';
+     
+        $response = $this->put('chofer/'.$driver->id, $driver->toArray());
+
+
+        $response->assertSee(Driver::all()->random());
+
+        
     }
 
     /** @test */
@@ -57,8 +65,8 @@ class DriverTest extends TestCase
         $driver = Driver::factory()->create([
             'nombre' => 'Juan',
             'cedula' => '123456789',
-            'fechaNacimiento' => '2020-07-08',
-            'tipoLicencia' => 'A',
+            'fecha_nacimiento' => '2020-07-08',
+            'tipo_licencia' => 'A',
         ]);
         //eliminar conductor
         $driver->delete();
@@ -74,8 +82,8 @@ class DriverTest extends TestCase
         $driver = Driver::factory()->create([
             'nombre' => 'Juan',
             'cedula' => '123456789',
-            'fechaNacimiento' => '2020-07-08',
-            'tipoLicencia' => 'A',
+            'fecha_nacimiento' => '2020-07-08',
+            'tipo_licencia' => 'A',
         ]);
         //mostrar datos del conductor
         $this->assertDatabaseHas('drivers', ['nombre' => 'Juan']);

@@ -15,7 +15,9 @@ class DriverController extends Controller
      */
     public function index()
     {
-        //
+        $drivers = Driver::all();
+
+        return view('screens.driver.index', ['drivers' => $drivers]);
     }
 
     /**
@@ -47,10 +49,6 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        $driver = Driver::find($id);
-
-        return view('screens.driver.show', compact($driver));
-
     }
 
     /**
@@ -59,7 +57,21 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
+    {
+        $driver = Driver::find($id);
+
+        return view('screens.driver.edit', ['driver' => $driver]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
 
         try {
@@ -74,31 +86,14 @@ class DriverController extends Controller
             $driver = Driver::find($id);
 
             $driver->update($validated);
-            $driver->saveChanges();
-
-            return redirect('chofer')->with(['success_msg'=>'Actualizado correctamente']);
-
-          //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
            
-            
+            return redirect('chofer')->with(['success_msg' => 'Actualizado correctamente']);
+
+
         } catch (Exception $e) {
 
             return redirect('chofer')->with(['error_msg' => $e->getMessage()]);
-            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
         }
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
