@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class BillFactory extends Factory
             'tipo_gasto' => $this->faker->text(),
             'descripcion' => $this->faker->text(),
             'monto' => $this->faker->numerify('#######'),
+            'vehicle_id'=>Vehicle::all()->random()->id,
         ];
     }
 }

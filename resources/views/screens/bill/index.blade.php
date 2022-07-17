@@ -1,0 +1,4 @@
+Hola desde Gastos
+
+
+{{$bills}}

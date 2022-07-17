@@ -15,8 +15,7 @@ class BillController extends Controller
     public function index()
     {
         $bills = Bill::all();
-
-        return view('bill.index', compact(json_decode($bills)));
+        return view('screens.bill.index', ['bills'=>$bills]);
     }
 
     /**
@@ -26,7 +25,7 @@ class BillController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.bill.create');
     }
 
     /**
@@ -48,7 +47,7 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('screens.bill.show');
     }
 
     /**
