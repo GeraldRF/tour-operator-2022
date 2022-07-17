@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('cedula');
-            $table->date('fechaNacimiento');
-            $table->string('tipoLicencia');
+            $table->date('fecha_nacimiento');
+            $table->string('tipo_licencia');
             $table->timestamps();
         });
     }

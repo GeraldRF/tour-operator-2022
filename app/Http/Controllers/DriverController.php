@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Driver;
+use Exception;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -45,7 +47,10 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $driver = Driver::find($id);
+
+        return view('screens.driver.show', compact($driver));
+
     }
 
     /**
@@ -54,9 +59,34 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'cedula' => 'required',
+                'fecha_nacimiento' => 'required',
+                'tipo_licencia' => 'required',
+            ]);
+
+            $driver = Driver::find($id);
+
+            $driver->update($validated);
+            $driver->saveChanges();
+
+            return redirect('chofer')->with(['success_msg'=>'Actualizado correctamente']);
+
+          //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('chofer')->with(['error_msg' => $e->getMessage()]);
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
+        }
+        
     }
 
     /**

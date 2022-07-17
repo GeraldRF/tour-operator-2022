@@ -20,8 +20,8 @@ class DriverFactory extends Factory
             //
             'nombre' => $this->faker->name,
             'cedula' => $this->faker->unique()->randomNumber(8),
-            'fechaNacimiento' => $this->faker->dateTimeBetween('-60 years', '-18 years'),
-            'tipoLicencia' => $this->faker->randomElement(['A', 'B', 'C']),
+            'fecha_nacimiento' => $this->faker->dateTimeBetween('-60 years', '-18 years'),
+            'tipo_licencia' => $this->faker->randomElement(['A', 'B', 'C']),
         ];
     }
 }
