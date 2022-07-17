@@ -52,6 +52,7 @@ class DriverTest extends TestCase
      
         $this->put('chofer/'.$driver->id, $driver->toArray());
 
+        $response->assertSessionHas('success_msg', 'Actualizado correctamente');
 
         $response = $this->get('chofer');
 

@@ -5,11 +5,13 @@ use App\Models\Client;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class ClientTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
     /**
      * A basic feature test example.
      *
@@ -46,11 +48,13 @@ class ClientTest extends TestCase
  /** @test */
  public function el_sistema_puede_eliminar_un_cliente_de_la_db()
  {
-    $Cliente = Client::factory(3)->create();
+   $clients = Client::factory(3)->create();
    
-    $Cliente=Client::find(1);
-    $Cliente->delete();
-    $this->assertDatabaseMissing('clients', ['id' => '1']);
+   $response = $this->delete('cliente/'.$clients[1]->id);
+
+   $response->assertSessionHas('success_msg', 'Se elimino correctamente');
+
+   $this->assertDatabaseMissing('clients', ['id' => $clients[1]->id]);
    
  }
 
