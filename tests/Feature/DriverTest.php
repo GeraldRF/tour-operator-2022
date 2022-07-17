@@ -50,12 +50,13 @@ class DriverTest extends TestCase
         $driver->fecha_nacimiento = '2020-07-09';
         $driver->tipo_licencia = 'B';
      
-        $response = $this->put('chofer/'.$driver->id, $driver->toArray());
+        $this->put('chofer/'.$driver->id, $driver->toArray());
 
 
-        $response->assertSee(Driver::all()->random());
+        $response = $this->get('chofer');
 
-        
+        $response->assertStatus(200)->assertSee($driver->nombre);
+
     }
 
     /** @test */
