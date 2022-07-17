@@ -11,13 +11,14 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class BillTest extends TestCase
 {
-   //use RefreshDatabase;
+   use RefreshDatabase;
    use WithoutMiddleware;
 
    /** @test */
-   public function el_sistema_puede_almacenar_gastos()
+   public function el_sistema_puede_almacenar_gastos_en_la_db()
    {
 
+      Vehicle::factory()->create();
 
       $bill = Bill::factory()->make();
 
@@ -28,13 +29,16 @@ class BillTest extends TestCase
    }
 
    /** @test */
-   // public function el_sistema_puede_mostrar_gastos()
-   // {
+   public function el_sistema_puede_mostrar_todos_los_gastos_de_la_db()
+   {
 
-   //      $vehicle = Vehicle::factory()->create();
-   //      Bill::factory(7)->create(['vehicle_id'=>$vehicle->id]);
+        Vehicle::factory(4)->create();
 
-   //      $this->assertEquals(7, count(Bill::All())); 
+        Bill::factory(7)->create();
 
-   // }
+        $response = $this->get('gastos');
+
+        $response->assertStatus(200)->assertSee(Bill::all()->random()); 
+
+   }
 }
