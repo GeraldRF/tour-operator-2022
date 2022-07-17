@@ -30,7 +30,7 @@ class DriverTest extends TestCase
     }
 
     /** @test */
-    public function el_sistema_puede_editar_un_conductor()
+    public function el_sistema_puede_editar_un_conductor_de_la_db()
     {
         //crear conductor
         $driver = Driver::factory()->create([

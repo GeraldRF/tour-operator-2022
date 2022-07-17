@@ -44,7 +44,7 @@ class ClientTest extends TestCase
   }
  
  /** @test */
- public function el_sistema_puede_eliminar_un_cliente()
+ public function el_sistema_puede_eliminar_un_cliente_de_la_db()
  {
     $Cliente = Client::factory(3)->create();
    

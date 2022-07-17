@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use Exception;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -80,7 +81,15 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::find($id);
-        $client->delete();
+        try {
+
+            $client = Client::find($id);
+            $client->delete();
+
+            return redirect('cliente')->with(['success_msg' => 'Se elimino correctamente']);
+        } catch (Exception $e) {
+
+            return redirect('cliente')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 }
