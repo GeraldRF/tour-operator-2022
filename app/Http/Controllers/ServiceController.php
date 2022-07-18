@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+use Exception;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -13,7 +15,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+
+        return view('screens.service.index', ['services' => $services]);
     }
 
     /**
@@ -23,7 +27,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.service.create');
     }
 
     /**
@@ -34,7 +38,27 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'costo' => 'required',
+                'tipo_servicio' => 'required',
+                'supplier_id' => 'required',
+                
+            ]);
+            Service::create($validated);
+
+            return redirect('servicio')->with(['success_msg'=>'Creado correctamente']);
+
+          //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('servicio')->with(['error_msg' => $e->getMessage()]);
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -56,7 +80,9 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+
+        return view('screens.service.edit', ['service' => $service]);
     }
 
     /**
@@ -68,7 +94,28 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'costo' => 'required',
+                'tipo_servicio' => 'required',
+                'supplier_id' => 'required',
+        
+            ]);
+
+            $service = Service::find($id);
+
+            $service->update($validated);
+           
+            return redirect('servicio')->with(['success_msg' => 'Actualizado correctamente']);
+
+
+        } catch (Exception $e) {
+
+            return redirect('servicio')->with(['error_msg' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -79,6 +126,16 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $service = Service::find($id);
+            $service->delete();
+
+            return redirect('servicio')->with(['success_msg' => 'Se elimino correctamente']);
+        } catch (Exception $e) {
+
+            return redirect('servicio')->with(['error_msg' => $e->getMessage()]);
+        }
     }
-}
+    }
+
