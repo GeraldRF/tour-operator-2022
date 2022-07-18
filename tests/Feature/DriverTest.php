@@ -13,20 +13,16 @@ class DriverTest extends TestCase
     use WithoutMiddleware;
     
     /** @test */
-    public function el_sistema_puede_crear_un_conductor()
+    public function el_sistema_puede_almacenar_conductores_en_la_db()
     {
-        //crear conductor
-        $driver = Driver::factory()->create([
-            'nombre' => 'Juan',
-            'cedula' => '123456789',
-            'fecha_nacimiento' => '2020-07-08',
-            'tipo_licencia' => 'A',
-        ]);
-        //verificar que el conductor se creo correctamente
-        $this->assertEquals('Juan', $driver->nombre);
-        $this->assertEquals('123456789', $driver->cedula);
-        $this->assertEquals('2020-07-08', $driver->fecha_nacimiento);
-        $this->assertEquals('A', $driver->tipo_licencia);
+      
+
+        $drivers = Driver::factory()->make();
+  
+        $this->post('chofer', $drivers->toArray());
+  
+        $this->assertDatabaseHas('drivers', $drivers->toArray());
+
     }
 
     /** @test */

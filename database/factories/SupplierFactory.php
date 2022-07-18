@@ -17,10 +17,10 @@ class SupplierFactory extends Factory
     public function definition()
     {
         return [
-            'cedulaJuridica' => $this->faker->unique()->randomNumber(8),
+            'cedula_juridica' => $this->faker->unique()->randomNumber(8),
             'nombre' => $this->faker->name,
-            'tipoEmpresa' => $this->faker->randomElement(['S.A.', 'S.C.', 'S.R.L.', 'S.E.N.C.']),
-            'porcentajeComision' => $this->faker->numberBetween(1, 100),
+            'tipo_empresa' => $this->faker->randomElement(['S.A.', 'S.C.', 'S.R.L.', 'S.E.N.C.']),
+            'porcentaje_comision' => $this->faker->numberBetween(1, 100),
         ];
        
     }
