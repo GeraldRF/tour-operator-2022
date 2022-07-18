@@ -17,26 +17,26 @@ class BillReportTest extends TestCase
     use WithoutMiddleware;
 
     /** @test */
-    public function el_sistema_puede_crear_reporte_de_gastos_en_la_db()
-    {
+    // public function el_sistema_puede_crear_reporte_de_gastos_en_la_db()
+    // {
 
-        Supplier::factory()->create();
+    //     Supplier::factory()->create();
 
-        Vehicle::factory()->create();
-        Bill::factory()->create();
+    //     Vehicle::factory()->create();
+    //     Bill::factory()->create();
 
-        Reservation::factory()->create();
+    //     Reservation::factory()->create();
 
-        $billReport = BillReport::factory()->make();
+    //     $billReport = BillReport::factory()->make();
 
-        $this->post('reporte-gastos', $billReport->toArray());
+    //     $this->post('reporte-gastos', $billReport->toArray());
   
-        $this->assertDatabaseHas('bill_reports', $billReport->toArray());
-    }
+    //     $this->assertDatabaseHas('bill_reports', $billReport->toArray());
+    // }
 
     /** @test */
-    public function el_sistema_puede_listar_reporte_de_gastos()
-    {
-       //
-    }
+    // public function el_sistema_puede_listar_reporte_de_gastos()
+    // {
+    //    //
+    // }
 }

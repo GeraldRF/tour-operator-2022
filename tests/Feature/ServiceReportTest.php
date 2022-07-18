@@ -18,35 +18,35 @@ class ServiceReportTest extends TestCase
     use WithoutMiddleware;
 
     /** @test */
-    public function el_sistema_puede_crear_reporte_de_servicios()
-    {
-        $supplier = Supplier::factory()->create();
+    // public function el_sistema_puede_crear_reporte_de_servicios()
+    // {
+    //     $supplier = Supplier::factory()->create();
 
-        $vehicle = Vehicle::factory()->create();
+    //     $vehicle = Vehicle::factory()->create();
        
-        $reserva = Reservation::factory()->create();
+    //     $reserva = Reservation::factory()->create();
 
-        $driver = Driver::factory()->create();
+    //     $driver = Driver::factory()->create();
 
 
-        $serviceReport = ServiceReport::factory()->create(['supplier_id'=>$supplier->id,  'vehicle_id'=>$vehicle->id, 'reservation_id'=>$reserva->id, 'driver_id'=>$driver->id]);
+    //     $serviceReport = ServiceReport::factory()->create(['supplier_id'=>$supplier->id,  'vehicle_id'=>$vehicle->id, 'reservation_id'=>$reserva->id, 'driver_id'=>$driver->id]);
 
-        $this->assertEquals($serviceReport->id, ServiceReport::find($serviceReport->id)->id);
-    }
+    //     $this->assertEquals($serviceReport->id, ServiceReport::find($serviceReport->id)->id);
+    // }
 
     /** @test */
-    public function el_sistema_puede_listar_reporte_de_servicios()
-    {
-        $supplier = Supplier::factory()->create();
+    // public function el_sistema_puede_listar_reporte_de_servicios()
+    // {
+    //     $supplier = Supplier::factory()->create();
 
-        $vehicle = Vehicle::factory()->create();
+    //     $vehicle = Vehicle::factory()->create();
        
-        $reserva = Reservation::factory()->create();
+    //     $reserva = Reservation::factory()->create();
 
-        $driver = Driver::factory()->create();
+    //     $driver = Driver::factory()->create();
 
-        ServiceReport::factory(3)->create(['supplier_id'=>$supplier->id, 'vehicle_id'=>$vehicle->id, 'reservation_id'=>$reserva->id, 'driver_id'=>$driver->id]);
+    //     ServiceReport::factory(3)->create(['supplier_id'=>$supplier->id, 'vehicle_id'=>$vehicle->id, 'reservation_id'=>$reserva->id, 'driver_id'=>$driver->id]);
 
-        $this->assertEquals(3, count(ServiceReport::all()));
-    }
+    //     $this->assertEquals(3, count(ServiceReport::all()));
+    // }
 }

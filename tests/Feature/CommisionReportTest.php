@@ -16,26 +16,26 @@ class CommisionReportTest extends TestCase
     use WithoutMiddleware;
 
     /** @test */
-    public function el_sistema_puede_crear_reporte_de_comisiones()
-    {
-        $supplier = Supplier::factory()->create();
+    // public function el_sistema_puede_crear_reporte_de_comisiones()
+    // {
+    //     $supplier = Supplier::factory()->create();
 
-        $reserva = Reservation::factory()->create();
+    //     $reserva = Reservation::factory()->create();
 
-        $commisionReport = CommisionReport::factory()->create(['supplier_id'=>$supplier->id, 'reservation_id'=>$reserva->id]);
+    //     $commisionReport = CommisionReport::factory()->create(['supplier_id'=>$supplier->id, 'reservation_id'=>$reserva->id]);
 
-        $this->assertEquals($commisionReport->id, CommisionReport::find($commisionReport->id)->id);
-    }
+    //     $this->assertEquals($commisionReport->id, CommisionReport::find($commisionReport->id)->id);
+    // }
 
     /** @test */
-    public function el_sistema_puede_listar_reporte_de_comisiones()
-    {
-        $supplier = Supplier::factory()->create();
+    // public function el_sistema_puede_listar_reporte_de_comisiones()
+    // {
+    //     $supplier = Supplier::factory()->create();
 
-        $reserva = Reservation::factory()->create();
+    //     $reserva = Reservation::factory()->create();
 
-        CommisionReport::factory(3)->create(['supplier_id'=>$supplier->id, 'reservation_id'=>$reserva->id]);
+    //     CommisionReport::factory(3)->create(['supplier_id'=>$supplier->id, 'reservation_id'=>$reserva->id]);
 
-        $this->assertEquals(3, count(CommisionReport::all()));
-    }
+    //     $this->assertEquals(3, count(CommisionReport::all()));
+    // }
 }

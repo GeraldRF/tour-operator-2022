@@ -16,16 +16,16 @@ class ConfirmationMailSentTest extends TestCase
     use WithoutMiddleware;
 
     /** @test */
-    public function el_sistema_puede_crear_reporte_de_gastos()
-    {
+    // public function el_sistema_puede_crear_reporte_de_gastos()
+    // {
 
-        $supplier = Supplier::factory()->create();
+    //     $supplier = Supplier::factory()->create();
 
-        $client = Client::factory()->create();
+    //     $client = Client::factory()->create();
 
 
-        $confirmationMailSent = ConfirmationEmailsSent::factory()->create(['supplier_id' => $supplier->id, 'client_id' => $client->id]);
+    //     $confirmationMailSent = ConfirmationEmailsSent::factory()->create(['supplier_id' => $supplier->id, 'client_id' => $client->id]);
 
-        $this->assertEquals($confirmationMailSent->id, ConfirmationEmailsSent::find($confirmationMailSent->id)->id);
-    }
+    //     $this->assertEquals($confirmationMailSent->id, ConfirmationEmailsSent::find($confirmationMailSent->id)->id);
+    // }
 }
