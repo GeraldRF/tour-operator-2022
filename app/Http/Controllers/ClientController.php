@@ -15,7 +15,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+
+        return view('screens.client.index', ['clients' => $clients]);
     }
 
     /**
@@ -25,7 +27,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.client.create');
     }
 
     /**
@@ -36,7 +38,28 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'apellidos' => 'required',
+                'cedula' => 'required',
+                'fecha_nacimiento' => 'required',
+                'correo_electronico' => 'required',
+            ]);
+
+            Client::create($validated);
+
+            return redirect('clientes')->with(['success_msg'=>'Creado correctamente']);
+
+          //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('clientes')->with(['error_msg' => $e->getMessage()]);
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -59,6 +82,13 @@ class ClientController extends Controller
     public function edit($id)
     {
         //
+
+        $client = Client::find($id);
+
+        return view('screens.client.edit', ['client' => $client]);
+
+
+
     }
 
     /**
@@ -70,7 +100,31 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'apellidos' => 'required',
+                'cedula' => 'required',
+                'fecha_nacimiento' => 'required',
+                'correo_electronico' => 'required',
+        
+            ]);
+
+            $client = Client::find($id);
+
+            $client->update($validated);
+           
+            return redirect('cliente')->with(['success_msg' => 'Actualizado correctamente']);
+
+
+        } catch (Exception $e) {
+
+            return redirect('cliente')->with(['error_msg' => $e->getMessage()]);
+        }
+
+
+
     }
 
     /**

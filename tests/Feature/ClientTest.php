@@ -18,7 +18,7 @@ class ClientTest extends TestCase
      * @return void
      */
    /** @test */
-   public function el_sistema_puede_crear_un_cliente()
+   public function el_sistema_puede_crear_un_cliente_de_la_bd()
    {
     $Client = new Client(['Cedula' => '503200102']);
 
@@ -27,7 +27,7 @@ class ClientTest extends TestCase
    }
  
  /** @test */
-  public function el_sistema_puede_editar_un_cliente()
+  public function el_sistema_puede_editar_un_cliente_de_la_bd()
   {
      
      $Cliente = Client::factory(3)->create();
@@ -59,7 +59,7 @@ class ClientTest extends TestCase
  }
 
 /** @test */
-public function el_sistema_puede_mostrar_los_clientes()
+public function el_sistema_puede_mostrar_los_clientes_de_la_bd()
 {
    $Cliente= Client::factory(4)->create();
    $ClienteMostrar=Client::find($Cliente[0]->id);
