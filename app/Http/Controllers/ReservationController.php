@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use Exception;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -26,7 +27,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.reservation.create');
     }
 
     /**
@@ -37,7 +38,29 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'cliente_id' => 'required',
+                'supplier_id' => 'required',
+                'numero_vuelo' => 'required',
+                'cantidad_pasajeros' => 'required',
+                'fecha_hora' => 'required',
+                'tarifa_servicio' => 'required',
+                'tipo_pago' => 'required',
+                'observaciones' => 'required'
+            ]);
+
+            Reservation::create($validated);
+
+            return redirect('reservacion')->with(['success_msg'=>'Creado correctamente']);
+
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('reservacion')->with(['error_msg' => $e->getMessage()]);
+            }
+
     }
 
     /**
@@ -48,7 +71,6 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -59,7 +81,9 @@ class ReservationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $reservation = Reservation::find($id);
+
+        return view('screens.reservation.edit', ['reservation' => $reservation]);
     }
 
     /**
@@ -71,7 +95,31 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try {
+
+            $validated = $request->validate([
+                'cliente_id' => 'required',
+                'supplier_id' => 'required',
+                'numero_vuelo' => 'required',
+                'cantidad_pasajeros' => 'required',
+                'fecha_hora' => 'required',
+                'tarifa_servicio' => 'required',
+                'tipo_pago' => 'required',
+                'observaciones' => 'required'
+            ]);
+
+            $reservation = Reservation::find($id);
+
+            $reservation->update($validated);
+           
+            return redirect('reservacion')->with(['success_msg' => 'Actualizado correctamente']);
+
+
+        } catch (Exception $e) {
+
+            return redirect('reservacion')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -82,6 +130,15 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $reservation = Reservation::find($id);
+            $reservation->delete();
+
+            return redirect('reservacion')->with(['success_msg' => 'Se elimino correctamente']);
+        } catch (Exception $e) {
+
+            return redirect('reservacion')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 }

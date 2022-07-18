@@ -51,14 +51,11 @@ class DriverController extends Controller
 
             return redirect('chofer')->with(['success_msg'=>'Creado correctamente']);
 
-          //return view('screens.driver.index', ['$bills'=>Bill::all(), ]);
-           
-            
+               
         } catch (Exception $e) {
 
             return redirect('chofer')->with(['error_msg' => $e->getMessage()]);
-            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
-        }
+            }
 
     }
 
