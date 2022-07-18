@@ -28,3 +28,4 @@ Route::get('/', function () {
 Route::resource('gastos', BillController::class);
 Route::resource('chofer', DriverController::class);
 Route::resource('cliente', ClientController::class);
+Route::resource('proveedor', SupplierController::class);

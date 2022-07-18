@@ -1,0 +1,3 @@
+suplier show
+
+{{$supplier}}

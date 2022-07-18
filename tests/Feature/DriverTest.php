@@ -73,18 +73,15 @@ class DriverTest extends TestCase
     }
 
     /** @test */
-    //mostrar conductor en consola
-    public function el_sistema_puede_mostrar_datos_de_un_conductor()
+    public function el_sistema_puede_mostrar_todos_los_conductores_de_la_db()
     {
-        //crear conductor
-        $driver = Driver::factory()->create([
-            'nombre' => 'Juan',
-            'cedula' => '123456789',
-            'fecha_nacimiento' => '2020-07-08',
-            'tipo_licencia' => 'A',
-        ]);
-        //mostrar datos del conductor
-        $this->assertDatabaseHas('drivers', ['nombre' => 'Juan']);
+ 
+         Driver::factory(7)->create();
+ 
+         $response = $this->get('chofer');
+ 
+         $response->assertStatus(200)->assertSee(Driver::all()->random()); 
+ 
     }
 
 }
