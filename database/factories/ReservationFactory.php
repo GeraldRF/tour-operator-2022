@@ -24,7 +24,7 @@ class ReservationFactory extends Factory
             'supplier_id'=>Supplier::all()->random()->id,
             'numero_vuelo'=>$this->faker->randomNumber(1,10),
             'cantidad_pasajeros'=>$this->faker->randomNumber(1,30),
-            'fecha_hora'=>$this->faker->randon()->dateTime(),
+            'fecha_hora'=>$this->faker->dateTime(),
             'tarifa_servicio'=>$this->faker->money_format(),
             'tipo_pago'=>$this->faker->text(),
             'observaciones'=>$this->faker->text(),

@@ -1,8 +1,14 @@
 <?php
 
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BillReportController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CommisionReportController;
+use App\Http\Controllers\ConfirmationEmailSentController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\ServiceReportController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +40,7 @@ Route::resource('proveedor', SupplierController::class);
 Route::resource('vehiculo', VehicleController::class);
 Route::resource('servicio', ServiceController::class);
 Route::resource('reservacion', ReservationController::class);
+Route::resource('reporte-gastos', BillReportController::class);
+Route::resource('reporte-servicios', ServiceReportController::class);
+Route::resource('reporte-comisiones', CommisionReportController::class);
+Route::post('enviar-correo-confirmacion', [ConfirmationEmailSentController::class, 'store']);

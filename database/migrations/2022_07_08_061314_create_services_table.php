@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table-> string ("Nombre");
+            $table-> string ("nombre");
             $table-> integer ("costo");
             $table-> string ("tipo_servicio");
             $table->foreignId("supplier_id");

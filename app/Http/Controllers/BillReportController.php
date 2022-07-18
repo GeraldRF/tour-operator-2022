@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillReport;
+use Exception;
 use Illuminate\Http\Request;
 
 class BillReportController extends Controller
@@ -13,7 +15,9 @@ class BillReportController extends Controller
      */
     public function index()
     {
-        //
+        $billReports = BillReport::all();
+
+        return view('screens.bill_report.index', ['billReports' => $billReports]);
     }
 
     /**
@@ -23,7 +27,7 @@ class BillReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.bill_report.create');
     }
 
     /**
@@ -34,7 +38,24 @@ class BillReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'rango_fechas' => 'required',
+                'supplier_id' => 'required',
+                'bill_id' => 'required',
+                'vehicle_id' => 'required',
+                'reservation_id' => 'required'
+            ]);
+
+            BillReport::create($validated);
+
+            return redirect('reporte-gastos')->with(['success_msg' => 'Creado correctamente']);
+            
+        } catch (Exception $e) {
+
+            return redirect('reporte-gastos')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 
     /**

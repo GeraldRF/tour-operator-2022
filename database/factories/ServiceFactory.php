@@ -17,7 +17,7 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            'Nombre'=>$this->faker->firstName(),
+            'nombre'=>$this->faker->firstName(),
             'costo'=>$this->faker->text(),
             'tipo_servicio' => $this->faker->text(),
         ];
