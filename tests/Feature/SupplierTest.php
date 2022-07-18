@@ -15,17 +15,17 @@ class SupplierTest extends TestCase
     {
         //crear proveedor
         $supplier = Supplier::factory()->create([
-            'cedulaJuridica' => '123456789',
+            'cedula_juridica' => '123456789',
             'nombre' => 'Proveedor 1',
-            'tipoEmpresa' => 'S.A.',
-            'porcentajeComision' => '10',
+            'tipo_empresa' => 'S.A.',
+            'porcentaje_comision' => '10',
         ]);
 
         //verificar que el proveedor se creo correctamente
-        $this->assertEquals('123456789', $supplier->cedulaJuridica);
+        $this->assertEquals('123456789', $supplier->cedula_juridica);
         $this->assertEquals('Proveedor 1', $supplier->nombre);
-        $this->assertEquals('S.A.', $supplier->tipoEmpresa);
-        $this->assertEquals('10', $supplier->porcentajeComision);
+        $this->assertEquals('S.A.', $supplier->tipo_empresa);
+        $this->assertEquals('10', $supplier->porcentaje_comision);
     }
 
     /** @test */
@@ -33,22 +33,22 @@ class SupplierTest extends TestCase
     {
         //crear proveedor
         $supplier = Supplier::factory()->create([
-            'cedulaJuridica' => '123456789',
+            'cedula_juridica' => '123456789',
             'nombre' => 'Proveedor 1',
-            'tipoEmpresa' => 'S.A.',
-            'porcentajeComision' => '10',
+            'tipo_empresa' => 'S.A.',
+            'porcentaje_comision' => '10',
         ]);
         //editar proveedor
-        $supplier->cedulaJuridica = '987654321';
+        $supplier->cedula_juridica = '987654321';
         $supplier->nombre = 'Proveedor 2';
-        $supplier->tipoEmpresa = 'S.C.';
-        $supplier->porcentajeComision = '20';
+        $supplier->tipo_empresa = 'S.C.';
+        $supplier->porcentaje_comision = '20';
         $supplier->save();
         //verificar que el proveedor se edito correctamente
-        $this->assertEquals('987654321', $supplier->cedulaJuridica);
+        $this->assertEquals('987654321', $supplier->cedula_juridica);
         $this->assertEquals('Proveedor 2', $supplier->nombre);
-        $this->assertEquals('S.C.', $supplier->tipoEmpresa);
-        $this->assertEquals('20', $supplier->porcentajeComision);
+        $this->assertEquals('S.C.', $supplier->tipo_empresa);
+        $this->assertEquals('20', $supplier->porcentaje_comision);
     }
 
     /** @test */
@@ -57,15 +57,15 @@ class SupplierTest extends TestCase
     {
         //crear proveedor
         $supplier = Supplier::factory()->create([
-            'cedulaJuridica' => '123456789',
+            'cedula_juridica' => '123456789',
             'nombre' => 'Proveedor 1',
-            'tipoEmpresa' => 'S.A.',
-            'porcentajeComision' => '10',
+            'tipo_empresa' => 'S.A.',
+            'porcentaje_comision' => '10',
         ]);
         //eliminar proveedor
         $supplier->delete();
         //verificar que el proveedor se elimino correctamente
-        $this->assertDatabaseMissing('suppliers', ['cedulaJuridica' => '123456789']);
+        $this->assertDatabaseMissing('suppliers', ['cedula_juridica' => '123456789']);
     }
 
     /** @test */
@@ -75,13 +75,13 @@ class SupplierTest extends TestCase
     {
         //Mostrar datos de un proveedor
         $supplier = Supplier::factory()->create([
-            'cedulaJuridica' => '123456789',
+            'cedula_juridica' => '123456789',
             'nombre' => 'Proveedor 1',
-            'tipoEmpresa' => 'S.A.',
-            'porcentajeComision' => '10',
+            'tipo_empresa' => 'S.A.',
+            'porcentaje_comision' => '10',
         ]);
         //verificar que el proveedor se muestra por consola
-        $this->assertDatabaseHas('suppliers', ['cedulaJuridica' => '123456789']);
+        $this->assertDatabaseHas('suppliers', ['cedula_juridica' => '123456789']);
     }
 
 

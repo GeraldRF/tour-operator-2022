@@ -9,5 +9,5 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cedula_juridica', 'nombre', 'tipo_Empresa', 'porcentaje_comision'];
+    protected $fillable = ['cedula_juridica', 'nombre', 'tipo_empresa', 'porcentaje_comision'];
 }
