@@ -27,7 +27,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.driver.create');
     }
 
     /**
@@ -38,7 +38,28 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'cedula' => 'required',
+                'fecha_nacimiento' => 'required',
+                'tipo_licencia' => 'required'
+            ]);
+
+            Driver::create($validated);
+
+            return redirect('chofer')->with(['success_msg'=>'Creado correctamente']);
+
+          //return view('screens.driver.index', ['$bills'=>Bill::all(), ]);
+           
+            
+        } catch (Exception $e) {
+
+            return redirect('chofer')->with(['error_msg' => $e->getMessage()]);
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
+        }
+
     }
 
     /**
