@@ -18,6 +18,8 @@ class ServiceFactory extends Factory
     {
         return [
             'Nombre'=>$this->faker->firstName(),
+            'costo'=>$this->faker->money_format(),
+            'tipo_servicio' => $this->faker->text(),
         ];
     }
 }
