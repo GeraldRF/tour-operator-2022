@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table-> string ("Cedula");
+            $table-> string ("nombre");
+            $table-> string ("apellidos");
+            $table-> Integer ("cedula");
+            $table-> date ("fecha_hora");
+            $table-> string ("correo_electronico");
             $table->timestamps();
         });
     }

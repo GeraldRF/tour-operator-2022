@@ -17,7 +17,15 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'Cedula'=>$this->faker->unique()->numberBetween($min =100000000, $max = 900000000),
+
+            'nombre'=>$this->faker->name(),
+            'apellidos'=>$this->faker->name(),
+            'cedula'=>$this->faker->unique()->numberBetween($min =100000000, $max = 900000000),
+            'fecha_nacimiento' => $this->faker->dateTimeBetween('-90 years', '-12 years'),
+            'correo_electronico'=>$this->faker->unique()->email(),
+
+
+
         ];
     }
 }
