@@ -22,15 +22,12 @@ class ReservationFactory extends Factory
         return [
             'client_id'=>Client::all()->random()->id,
             'supplier_id'=>Supplier::all()->random()->id,
-            'numero_vuelo'=>$this->faker->randomNumber(1,10),
-            'cantidad_pasajeros'=>$this->faker->randomNumber(1,30),
+            'numero_vuelo'=>$this->faker->numerify('#######'),
+            'cantidad_pasajeros'=>$this->faker->numerify('#######'),
             'fecha_hora'=>$this->faker->dateTime(),
-            'tarifa_servicio'=>$this->faker->money_format(),
-            'tipo_pago'=>$this->faker->text(),
+            'tarifa_servicio'=>$this->faker->text(),
+            'tipo_pago'=>$this->faker->numerify('#######'),
             'observaciones'=>$this->faker->text(),
-
-
-            
         ];
     }
 }

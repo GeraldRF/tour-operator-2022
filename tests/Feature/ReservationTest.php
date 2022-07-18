@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Client;
 use App\Models\Reservation;
+use App\Models\Service;
+use App\Models\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -18,53 +21,76 @@ class ReservationTest extends TestCase
      * @return void
      */
   /** @test */
-  public function el_sistema_puede_crear_una_reservacion()
+  public function el_sistema_puede_crear_una_reservacion_en_la_bd()
   {
-      $Reservita = new Reservation(['Cliente' => 'Jafeth']);
 
-      $this->assertEquals('Jafeth', $Reservita ->Cliente);
+   Client::factory()->create();
+   Supplier::factory()->create();
+
+   $Reservacion = Reservation::factory()->make();
+
+   $this->post('reservacion', $Reservacion->toArray());
+
+   $this->assertDatabaseHas('reservations', $Reservacion->toArray());
      
   }
 
 /** @test */
- public function el_sistema_puede_editar_una_reservacion()
+ public function el_sistema_puede_editar_una_reservacion_de_la_bd()
  {
     
-    $Reservita = Reservation::factory(3)->create();
-    $Reservita = Reservation::find(1);
-    $ClienteAModificar=$Reservita->Cliente;
-    $this->assertEquals($ClienteAModificar,$Reservita->Cliente);
+   Client::factory()->create();
+   Supplier::factory()->create();
+   $reservacion = Reservation::factory()->create();
+    
+    $response = $this->get('servicio/'.$reservacion->id.'/edit');
 
-    $Reservita->Cliente = 'Fabricio';
-    $Reservita->save();
+   $response->assertStatus(200)->assertSee($reservacion->nombre);
 
-    $Reservita = Reservation::find(1);
+    //editar servicio
+    $reservacion->numero_vuelo = '150';
+    $reservacion->cantidad_pasajeros = '25';
+    
+ 
+    $this->put('reservacion/'.$reservacion->id, $reservacion->toArray());
 
-     $this->assertEquals('Fabricio', $Reservita ->Cliente);
+    $response->assertSessionHas('success_msg', 'Actualizado correctamente');
+
+    $response = $this->get('servicio');
+
+    $response->assertStatus(200)->assertSee([$reservacion->nombre,$reservacion->apellidos]);
 
 
  }
 
 /** @test */
-public function el_sistema_puede_eliminar_una_reservacion()
+public function el_sistema_puede_eliminar_una_reservacion_de_la_bd()
 {
-   $Reservita = Reservation::factory(3)->create();
-  
-   $Reservita=Reservation::find(1);
-   $Reservita->delete();
-   $this->assertDatabaseMissing('reservations', ['id' => '1']);
+   Client::factory()->create();
+   Supplier::factory()->create();
+
+   $reservacion =Reservation::factory(3)->create();
+   
+   $response = $this->delete('reservacion/'.$reservacion[1]->id);
+
+   $response->assertSessionHas('success_msg', 'Se elimino correctamente');
+
+   $this->assertDatabaseMissing('reservations', ['id' => $reservacion[1]->id]);
   
 }
 
 
 /** @test */
-public function el_sistema_puede_mostrar_la_reservacion()
+public function el_sistema_puede_mostrar_la_reservacion_de_la_bd()
 {
-   $Reservacion= Reservation::factory(2)->create();
-   $ReservacionMostrar=Reservation::find($Reservacion[0]->id);
-   
-   
-   $this->assertEquals($ReservacionMostrar->id,$Reservacion[0]->id);
+   Client::factory()->create();
+   Supplier::factory()->create();
+
+   Reservation::factory(3)->create();
+
+   $response = $this->get('reservacion');
+
+   $response->assertStatus(200)->assertSee(Reservation::all()->random()); 
   
 }
 
