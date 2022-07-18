@@ -7,11 +7,13 @@ use App\Models\Supplier;
 use App\Models\ConfirmationEmailsSent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class ConfirmationMailSentTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     /** @test */
     public function el_sistema_puede_crear_reporte_de_gastos()

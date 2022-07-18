@@ -8,11 +8,12 @@ use Tests\TestCase;
 use App\Models\Reservation;
 use App\Models\Supplier;
 use App\Models\CommisionReport;
-
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class CommisionReportTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     /** @test */
     public function el_sistema_puede_crear_reporte_de_comisiones()

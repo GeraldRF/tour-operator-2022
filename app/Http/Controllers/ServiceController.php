@@ -47,6 +47,7 @@ class ServiceController extends Controller
                 'supplier_id' => 'required',
                 
             ]);
+            
             Service::create($validated);
 
             return redirect('servicio')->with(['success_msg'=>'Creado correctamente']);

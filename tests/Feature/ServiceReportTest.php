@@ -10,10 +10,12 @@ use App\Models\Reservation;
 use App\Models\Supplier;
 use App\Models\Vehicle;
 use App\Models\Driver;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ServiceReportTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     /** @test */
     public function el_sistema_puede_crear_reporte_de_servicios()
