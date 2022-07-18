@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('cedulaJuridica');
+            $table->string('cedula_juridica');
             $table->string('nombre');
-            $table->string('tipoEmpresa');
-            $table->float('porcentajeComision');
+            $table->string('tipo_empresa');
+            $table->float('porcentaje_comision');
             $table->timestamps();
         });
     }
