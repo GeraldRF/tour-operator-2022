@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Suppllier;
+use Exception;
+use Illuminate\Queue\Jobs\RedisJob;
 
 class SupplierController extends Controller
 {
@@ -13,7 +16,10 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        
+        $suppliers = Suppliers::all();
+
+        return view('screens.supplier.index', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -23,7 +29,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('screens.supplier.create');
     }
 
     /**
@@ -34,7 +40,26 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        try {
+            
+            $validated = $request->validate([
+                'cedula_juridica' => 'required',
+                'nombre' => 'required',
+                'tipo_empresa' => 'required',
+                'porcentaje_comision' => 'required',
+            ]);
+            
+            Suppllier::create($validated);
+            
+            return redirect('proveedor')->with(['success_msg'=>'Creado correctamente']);
+            
+            //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
+            
+            
+        } catch (Exception $e) {
+            return redirect('proveedor')->with(['error_msg'=>'Error al crear']);
+        }
     }
 
     /**
@@ -45,7 +70,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        return view('screens.supplier.show');
     }
 
     /**

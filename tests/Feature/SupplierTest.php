@@ -5,28 +5,21 @@ use App\Models\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class SupplierTest extends TestCase
 {
     use refreshDatabase;
+    use WithoutMiddleware;
 
    /** @test */
-    public function el_sistema_puede_crear_un_proveedor()
-    {
-        //crear proveedor
-        $supplier = Supplier::factory()->create([
-            'cedula_juridica' => '123456789',
-            'nombre' => 'Proveedor 1',
-            'tipo_empresa' => 'S.A.',
-            'porcentaje_comision' => '10',
-        ]);
+   public function el_sistema_puede_almacenar_proveedores_en_la_db()
+   {
+     
 
-        //verificar que el proveedor se creo correctamente
-        $this->assertEquals('123456789', $supplier->cedula_juridica);
-        $this->assertEquals('Proveedor 1', $supplier->nombre);
-        $this->assertEquals('S.A.', $supplier->tipo_empresa);
-        $this->assertEquals('10', $supplier->porcentaje_comision);
-    }
+     //
+
+   }
 
     /** @test */
     public function el_sistema_puede_editar_un_proveedor()

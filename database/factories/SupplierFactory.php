@@ -18,7 +18,7 @@ class SupplierFactory extends Factory
     {
         return [
             'cedula_juridica' => $this->faker->unique()->randomNumber(8),
-            'nombre' => $this->faker->name,
+            'nombre' => $this->faker->text(),
             'tipo_empresa' => $this->faker->randomElement(['S.A.', 'S.C.', 'S.R.L.', 'S.E.N.C.']),
             'porcentaje_comision' => $this->faker->numberBetween(1, 100),
         ];
