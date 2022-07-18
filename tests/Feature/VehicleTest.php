@@ -4,83 +4,66 @@ namespace Tests\Feature;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class VehicleTest extends TestCase
 {
     use refreshDatabase;
+    use WithoutMiddleware;
     
 /** @test */
-    public function el_sistema_puede_crear_un_vehiculo()
+    public function el_sistema_puede_crear_un_vehiculo_en_la_db()
     {
-        //crear vehiculo
-        $vehicle = Vehicle::factory()->create([
-            'placa' => 'ABC123',
-            'marca' => 'Toyota',
-            'modelo' => 'Corolla',
-            'capacidad' => '5',
-        ]);
-
-        //verificar que el vehiculo se creo correctamente
-        $this->assertEquals('ABC123', $vehicle->placa);
-        
+        $vehicle = Vehicle::factory()->make();
+  
+        $this->post('vehiculo', $vehicle->toArray());
+  
+        $this->assertDatabaseHas('vehicles', $vehicle->toArray());
        
     }
 
     /** @test */
-    public function el_sistema_puede_editar_un_vehiculo()
+    public function el_sistema_puede_editar_un_vehiculo_de_la_db()
     {
-        //crear vehiculo
-        $vehicle = Vehicle::factory()->create([
-            'placa' => 'ABC123',
-            'marca' => 'Toyota',
-            'modelo' => 'Corolla',
-            'capacidad' => '5',
-        ]);
-        //editar vehiculo
-        $vehicle->placa = 'ABC456';
-        $vehicle->marca = 'Honda';
-        $vehicle->modelo = 'Accord';
-        $vehicle->capacidad = '7';
-        $vehicle->save();
-        //verificar que el vehiculo se edito correctamente
-        $this->assertEquals('ABC456', $vehicle->placa);
-        $this->assertEquals('Honda', $vehicle->marca);
-        $this->assertEquals('Accord', $vehicle->modelo);
-        $this->assertEquals('7', $vehicle->capacidad);
+        $vehicle = Vehicle::factory()->create();
+
+        $response = $this->get('vehiculo/'.$vehicle->id.'/edit');
+
+       $response->assertStatus(200)->assertSee($vehicle->placa);
+
+        $vehicle->placa = '12321';
+        $vehicle->marca = 'Mercedes';
+     
+        $this->put('vehiculo/'.$vehicle->id, $vehicle->toArray());
+
+        $response->assertSessionHas('success_msg', 'Actualizado correctamente');
+
+        $response = $this->get('vehiculo');
+
+        $response->assertStatus(200)->assertSee($vehicle->placa);
     }
 
     /** @test */
-    public function el_sistema_puede_eliminar_un_vehiculo()
+    public function el_sistema_puede_eliminar_un_vehiculo_de_la_db()
     {
-        //crear vehiculo
-        $vehicle = Vehicle::factory()->create([
-            'placa' => 'ABC123',
-            'marca' => 'Toyota',
-            'modelo' => 'Corolla',
-            'capacidad' => '5',
-        ]);
-        //eliminar vehiculo
-        $vehicle->delete();
-        //verificar que el vehiculo se elimino correctamente
-        $this->assertDatabaseMissing('vehicles', ['id' => $vehicle->id]);
+        $vehicles = Vehicle::factory(3)->create();
+   
+        $response = $this->delete('vehiculo/'.$vehicles[1]->id);
+     
+        $response->assertSessionHas('success_msg', 'Se elimino correctamente');
+     
+        $this->assertDatabaseMissing('vehicles', ['id' => $vehicles[1]->id]);
     }
 
     /** @test */
-    public function el_sistema_puede_mostrar_datos_de_un_vehiculo()
+    public function el_sistema_puede_mostrar_todos_los_vehiculos_de_la_db()
     {
-        //Mostrar datos de un vehiculo
-        $vehicle = Vehicle::factory()->create([
-            'placa' => 'ABC123',
-            'marca' => 'Toyota',
-            'modelo' => 'Corolla',
-            'capacidad' => '5',
-        ]);
-        //verificar que el vehiculo se muestra por consola
+        Vehicle::factory(7)->create();
+ 
+        $response = $this->get('vehiculo');
 
-        $this->assertDatabaseHas('vehicles', ['placa' => 'ABC123']);
-       
-      
+        $response->assertStatus(200)->assertSee(Vehicle::all()->random()); 
     }
    
 }

@@ -1,3 +1,3 @@
 Driver edit
 
-{{$suplier}}
+{{$supplier}}

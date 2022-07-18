@@ -3,6 +3,8 @@
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,4 @@ Route::resource('gastos', BillController::class);
 Route::resource('chofer', DriverController::class);
 Route::resource('cliente', ClientController::class);
 Route::resource('proveedor', SupplierController::class);
+Route::resource('vehiculo', VehicleController::class);

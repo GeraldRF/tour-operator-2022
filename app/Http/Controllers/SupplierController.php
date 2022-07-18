@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suppllier;
+use App\Models\Supplier;
 use Exception;
 use Illuminate\Queue\Jobs\RedisJob;
 
@@ -17,7 +17,7 @@ class SupplierController extends Controller
     public function index()
     {
         
-        $suppliers = Suppliers::all();
+        $suppliers = Supplier::all();
 
         return view('screens.supplier.index', ['suppliers' => $suppliers]);
     }
@@ -50,12 +50,9 @@ class SupplierController extends Controller
                 'porcentaje_comision' => 'required',
             ]);
             
-            Suppllier::create($validated);
+            Supplier::create($validated);
             
-            return redirect('proveedor')->with(['success_msg'=>'Creado correctamente']);
-            
-            //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
-            
+            return redirect('proveedor')->with(['success_msg'=>'Creado correctamente']);  
             
         } catch (Exception $e) {
             return redirect('proveedor')->with(['error_msg'=>'Error al crear']);
@@ -82,7 +79,9 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $supplier = Supplier::find($id);
+
+        return view('screens.supplier.edit', ['supplier' => $supplier]);
     }
 
     /**
@@ -94,7 +93,27 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try {
+
+            $validated = $request->validate([
+                'cedula_juridica' => 'required',
+                'nombre' => 'required',
+                'tipo_empresa' => 'required',
+                'porcentaje_comision' => 'required',
+            ]);
+
+            $supplier = Supplier::find($id);
+
+            $supplier->update($validated);
+           
+            return redirect('vehiculo')->with(['success_msg' => 'Actualizado correctamente']);
+
+
+        } catch (Exception $e) {
+
+            return redirect('vehiculo')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -105,6 +124,15 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $supplier = Supplier::find($id);
+            $supplier->delete();
+
+            return redirect('vehiculo')->with(['success_msg' => 'Se elimino correctamente']);
+        } catch (Exception $e) {
+
+            return redirect('vehiculo')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 }

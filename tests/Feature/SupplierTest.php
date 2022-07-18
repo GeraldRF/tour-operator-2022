@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Feature;
+
 use App\Models\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -12,70 +13,61 @@ class SupplierTest extends TestCase
     use refreshDatabase;
     use WithoutMiddleware;
 
-   /** @test */
-   public function el_sistema_puede_almacenar_proveedores_en_la_db()
-   {
-     
+    /** @test */
+    public function el_sistema_puede_almacenar_proveedores_en_la_db()
+    {
 
-     //
+        $supplier = Supplier::factory()->make();
 
-   }
+        $this->post('proveedor', $supplier->toArray());
+
+        $this->assertDatabaseHas('suppliers', $supplier->toArray());
+    }
 
     /** @test */
-    public function el_sistema_puede_editar_un_proveedor()
+    public function el_sistema_puede_editar_un_proveedor_de_la_db()
     {
-        //crear proveedor
-        $supplier = Supplier::factory()->create([
-            'cedula_juridica' => '123456789',
-            'nombre' => 'Proveedor 1',
-            'tipo_empresa' => 'S.A.',
-            'porcentaje_comision' => '10',
-        ]);
-        //editar proveedor
-        $supplier->cedula_juridica = '987654321';
-        $supplier->nombre = 'Proveedor 2';
-        $supplier->tipo_empresa = 'S.C.';
-        $supplier->porcentaje_comision = '20';
-        $supplier->save();
-        //verificar que el proveedor se edito correctamente
-        $this->assertEquals('987654321', $supplier->cedula_juridica);
-        $this->assertEquals('Proveedor 2', $supplier->nombre);
-        $this->assertEquals('S.C.', $supplier->tipo_empresa);
-        $this->assertEquals('20', $supplier->porcentaje_comision);
+        $supplier = Supplier::factory()->create();
+
+        $response = $this->get('proveedor/' . $supplier->id . '/edit');
+
+        $response->assertStatus(200)->assertSee($supplier->nombre);
+
+        //editar conductor
+        $supplier->nombre = 'Coca cola';
+        $supplier->tipo_empresa = 'Bebidas';
+
+        $this->put('proveedor/' . $supplier->id, $supplier->toArray());
+
+        $response->assertSessionHas('success_msg', 'Actualizado correctamente');
+
+        $response = $this->get('proveedor');
+
+        $response->assertStatus(200)->assertSee($supplier->nombre);
     }
 
     /** @test */
 
-    public function el_sistema_puede_eliminar_un_proveedor()
+    public function el_sistema_puede_eliminar_un_proveedor_de_la_db()
     {
-        //crear proveedor
-        $supplier = Supplier::factory()->create([
-            'cedula_juridica' => '123456789',
-            'nombre' => 'Proveedor 1',
-            'tipo_empresa' => 'S.A.',
-            'porcentaje_comision' => '10',
-        ]);
-        //eliminar proveedor
-        $supplier->delete();
-        //verificar que el proveedor se elimino correctamente
-        $this->assertDatabaseMissing('suppliers', ['cedula_juridica' => '123456789']);
+        $supplier = Supplier::factory(3)->create();
+
+        $response = $this->delete('proveedor/' . $supplier[1]->id);
+
+        $response->assertSessionHas('success_msg', 'Se elimino correctamente');
+
+        $this->assertDatabaseMissing('suppliers', ['id' => $supplier[1]->id]);
     }
 
     /** @test */
 
     //mostrar proveedors por consola
-    public function el_sistema_puede_mostrar_datos_de_un_proveedor()
+    public function el_sistema_puede_mostrar_todos_los_proveedores_de_la_db()
     {
-        //Mostrar datos de un proveedor
-        $supplier = Supplier::factory()->create([
-            'cedula_juridica' => '123456789',
-            'nombre' => 'Proveedor 1',
-            'tipo_empresa' => 'S.A.',
-            'porcentaje_comision' => '10',
-        ]);
-        //verificar que el proveedor se muestra por consola
-        $this->assertDatabaseHas('suppliers', ['cedula_juridica' => '123456789']);
+        Supplier::factory(7)->create();
+
+        $response = $this->get('proveedor');
+
+        $response->assertStatus(200)->assertSee(Supplier::all()->random());
     }
-
-
 }
