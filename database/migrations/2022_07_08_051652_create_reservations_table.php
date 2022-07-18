@@ -15,8 +15,14 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table-> string ("Cliente");
-           
+            $table-> foreignId ("cliente_id");
+            $table-> foreignId ("supplier_id");
+            $table-> Integer ("numero_vuelo");
+            $table-> Integer ("cantidad_pasajeros");
+            $table-> date ("fecha_hora");
+            $table-> Integer ("tarifa_servicio");
+            $table-> string ("tipo_pago");
+            $table-> string ("observaciones");
             $table->timestamps();
         });
     }
