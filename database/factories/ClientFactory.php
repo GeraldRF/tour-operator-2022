@@ -21,7 +21,7 @@ class ClientFactory extends Factory
             'nombre'=>$this->faker->name(),
             'apellidos'=>$this->faker->name(),
             'cedula'=>$this->faker->unique()->numberBetween($min =100000000, $max = 900000000),
-            'fecha_nacimiento' => $this->faker->dateTimeBetween('-90 years', '-12 years'),
+            'fecha_nacimiento' => $this->faker->date(),
             'correo_electronico'=>$this->faker->unique()->email(),
 
 

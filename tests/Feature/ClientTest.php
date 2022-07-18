@@ -18,35 +18,47 @@ class ClientTest extends TestCase
      * @return void
      */
    /** @test */
-   public function el_sistema_puede_crear_un_cliente_de_la_bd()
+   public function el_sistema_puede_crear_un_cliente_en_la_bd()
    {
-    $Client = new Client(['Cedula' => '503200102']);
+    
+      $client = Client::factory()->make();
 
-    $this->assertEquals('503200102', $Client ->Cedula);
+      $this->post('cliente', $client->toArray());
+
+      $this->assertDatabaseHas('clients', $client->toArray());
       
    }
  
- /** @test */
-  public function el_sistema_puede_editar_un_cliente_de_la_bd()
-  {
-     
-     $Cliente = Client::factory(3)->create();
-     $Cliente = Client::find(1);
-     $CedulaAModificar=$Cliente->Cedula;
-     $this->assertEquals($CedulaAModificar,$Cliente->Cedula);
+
+/** @test */
+public function el_sistema_puede_editar_un_cliente_de_la_db()
+{
+    //crear conductor
+    $client = Client::factory()->create();
+    
+
+    $response = $this->get('cliente/'.$client->id.'/edit');
+
+   $response->assertStatus(200)->assertSee($client->nombre);
+
+    //editar cliente
+    $client->nombre = 'Alan';
+    $client->apellidos = 'Ramirez';
+    
  
-     $Cliente->Cedula = '111111000';
-     $Cliente->save();
- 
-     $Cliente = Client::find(1);
- 
-      $this->assertEquals('111111000', $Cliente ->Cedula);
+    $this->put('cliente/'.$client->id, $client->toArray());
+
+    $response->assertSessionHas('success_msg', 'Actualizado correctamente');
+
+    $response = $this->get('cliente');
+
+    $response->assertStatus(200)->assertSee([$client->nombre,$client->apellidos]);
  
  
   }
  
  /** @test */
- public function el_sistema_puede_eliminar_un_cliente_de_la_db()
+ public function el_sistema_puede_eliminar_un_cliente_de_la_bd()
  {
    $clients = Client::factory(3)->create();
    
@@ -59,7 +71,7 @@ class ClientTest extends TestCase
  }
 
 /** @test */
-public function el_sistema_puede_mostrar_los_clientes_de_la_bd()
+public function el_sistema_puede_mostrar_los_clientes_()
 {
    $Cliente= Client::factory(4)->create();
    $ClienteMostrar=Client::find($Cliente[0]->id);

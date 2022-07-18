@@ -1,5 +1,5 @@
 Hola desde Chofer
 
 @foreach ($drivers as $driver)
-    {{$drivers}} <br><br>
+    {{$driver}} <br><br>
 @endforeach

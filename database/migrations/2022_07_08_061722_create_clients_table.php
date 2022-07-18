@@ -18,7 +18,7 @@ return new class extends Migration
             $table-> string ("nombre");
             $table-> string ("apellidos");
             $table-> Integer ("cedula");
-            $table-> date ("fecha_hora");
+            $table-> date ("fecha_nacimiento");
             $table-> string ("correo_electronico");
             $table->timestamps();
         });

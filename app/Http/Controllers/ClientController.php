@@ -50,14 +50,14 @@ class ClientController extends Controller
 
             Client::create($validated);
 
-            return redirect('clientes')->with(['success_msg'=>'Creado correctamente']);
+            return redirect('cliente')->with(['success_msg'=>'Creado correctamente']);
 
           //return view('screens.bill.index', ['$bills'=>Bill::all(), ]);
            
             
         } catch (Exception $e) {
 
-            return redirect('clientes')->with(['error_msg' => $e->getMessage()]);
+            return redirect('cliente')->with(['error_msg' => $e->getMessage()]);
             //return view('screens.bill.index', ['$bills'=>Bill::all(), 'error_msg' => $e->getMessage()]);
         }
     }
@@ -81,7 +81,7 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        
 
         $client = Client::find($id);
 
