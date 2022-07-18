@@ -125,6 +125,15 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $driver = Driver::find($id);
+            $driver->delete();
+
+            return redirect('chofer')->with(['success_msg' => 'Se elimino correctamente']);
+        } catch (Exception $e) {
+
+            return redirect('chofer')->with(['error_msg' => $e->getMessage()]);
+        }
     }
 }

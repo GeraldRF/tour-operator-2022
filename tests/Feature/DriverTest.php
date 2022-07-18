@@ -59,17 +59,15 @@ class DriverTest extends TestCase
     /** @test */
     public function el_sistema_puede_eliminar_un_conductor()
     {
-        //crear conductor
-        $driver = Driver::factory()->create([
-            'nombre' => 'Juan',
-            'cedula' => '123456789',
-            'fecha_nacimiento' => '2020-07-08',
-            'tipo_licencia' => 'A',
-        ]);
-        //eliminar conductor
-        $driver->delete();
-        //verificar que el conductor se elimino correctamente
-        $this->assertNull($driver->fresh());
+        
+        $drivers = Driver::factory(3)->create();
+   
+        $response = $this->delete('chofer/'.$drivers[1]->id);
+     
+        $response->assertSessionHas('success_msg', 'Se elimino correctamente');
+     
+        $this->assertDatabaseMissing('drivers', ['id' => $drivers[1]->id]);
+       
     }
 
     /** @test */
