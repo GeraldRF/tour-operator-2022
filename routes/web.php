@@ -32,3 +32,5 @@ Route::resource('chofer', DriverController::class);
 Route::resource('cliente', ClientController::class);
 Route::resource('proveedor', SupplierController::class);
 Route::resource('vehiculo', VehicleController::class);
+Route::resource('servicio', ServiceController::class);
+Route::resource('reservacion', ReservationController::class);
